@@ -2,16 +2,16 @@ import { useState } from "react";
 
 import { useQuery } from "react-query";
 
-import axios from "axios";
 import ModalNovaRemessa from "../../components/Modal/ModalNovoPedido";
+import { api } from "../../services/api";
 
 export type Remessas = {
-  id: string;
-  numero_pedido: string;
-  nota_fiscal: string;
-  data_pedido: string;
-  nome_cliente: string;
-  email_cliente: string;
+  _id: string;
+  numeroPedido: string;
+  numeroNfe: string;
+  dataPedido: string;
+  nomeCliente: string;
+  emailCliente: string;
 };
 
 export default function Remessa() {
@@ -20,7 +20,7 @@ export default function Remessa() {
   const { data, isLoading, error } = useQuery<Remessas[]>(
     "listaremessas",
     async () => {
-      const response = await axios.get("http://127.0.0.1:5000/api/pedidos");
+      const response = await api.get("/remessas");
 
       console.log(response.data);
       return response.data;
@@ -68,8 +68,8 @@ export default function Remessa() {
         ) : error ? (
           <div>error</div>
         ) : (
-          <div className="relative overflow-x-auto">
-            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <div className="overflow-x-auto rounded-lg">
+            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                   <th scope="col" className="px-6 py-3">
@@ -96,19 +96,19 @@ export default function Remessa() {
                 {data?.map((pedido) => {
                   return (
                     <tr
-                      key={pedido.id}
+                      key={pedido._id}
                       className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                     >
                       <th
                         scope="row"
                         className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                       >
-                        {pedido.numero_pedido}
+                        {pedido.numeroPedido}
                       </th>
-                      <td className="px-6 py-4">{pedido.nota_fiscal}</td>
-                      <td className="px-6 py-4">{pedido.data_pedido}</td>
-                      <td className="px-6 py-4">{pedido.nome_cliente}</td>
-                      <td className="px-6 py-4">{pedido.email_cliente}</td>
+                      <td className="px-6 py-4">{pedido.numeroNfe}</td>
+                      <td className="px-6 py-4">{pedido.dataPedido}</td>
+                      <td className="px-6 py-4">{pedido.nomeCliente}</td>
+                      <td className="px-6 py-4">{pedido.emailCliente}</td>
                       <td className="px-6 py-4">Editar</td>
                     </tr>
                   );
