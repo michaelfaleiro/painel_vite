@@ -8,6 +8,7 @@ import Home from "./pages/Home/Index.tsx";
 import App from "./App.tsx";
 import ErrorPage from "./pages/ErrorPage/Index.tsx";
 import { queryClient } from "./services/queryClient.ts";
+import RemessaDetails from "./pages/Remessa/Index.tsx";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/remessa/:id",
+        element: <RemessaDetails />,
       },
     ],
   },

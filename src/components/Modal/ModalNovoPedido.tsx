@@ -13,7 +13,7 @@ interface Props {
 const schemaInput = z.object({
   numeroPedido: z.number(),
   numeroNfe: z.number(),
-  dataPedido: z.string().datetime(),
+  dataPedido: z.date(),
   nomeCliente: z.string().nonempty("Campo Obrigatório"),
   emailCliente: z.string().email("Email Inválido"),
 });
@@ -31,9 +31,7 @@ export default function ModalNovaRemessa({ isOpen, setIsOpen }: Props) {
   const handleSubmit = async (data: RInput | unknown) => {
     await api
       .post("remessa", data)
-      .then(() => {
-        console.log("Deu certo");
-      })
+      .then(() => {})
       .catch((err) => {
         console.log(err);
       });
@@ -82,7 +80,7 @@ export default function ModalNovaRemessa({ isOpen, setIsOpen }: Props) {
                   Número Pedido
                 </label>
                 <input
-                  type="number"
+                  type="text"
                   id="numeroPedido"
                   className="text-black p-1 rounded-md focus:bg-gray-300"
                   {...register("numeroPedido", { valueAsNumber: true })}
@@ -100,7 +98,7 @@ export default function ModalNovaRemessa({ isOpen, setIsOpen }: Props) {
                   Número Nfe
                 </label>
                 <input
-                  type="number"
+                  type="text"
                   id="numeroNfe"
                   className="text-black p-1 rounded-md focus:bg-gray-300"
                   {...register("numeroNfe", { valueAsNumber: true })}
@@ -120,7 +118,7 @@ export default function ModalNovaRemessa({ isOpen, setIsOpen }: Props) {
                   type="date"
                   id="dataPedido"
                   className="text-black p-1 rounded-md focus:bg-gray-300"
-                  {...register("dataPedido")}
+                  {...register("dataPedido", { valueAsDate: true })}
                 />
                 {errors.dataPedido && (
                   <span className="text-red-700 font-semibold">
