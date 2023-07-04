@@ -1,13 +1,14 @@
-import "./App.css";
+import "./index.css";
 import { Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 
 function App() {
   return (
     <>
-      <div className="bg-primary w-full">
+      <div className="bg-primary h-screen ">
         <Navbar />
-        <div className="min-h-screen">
+
+        <div className="">
           <Outlet />
         </div>
       </div>

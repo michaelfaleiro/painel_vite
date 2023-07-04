@@ -11,9 +11,16 @@ interface Props {
 }
 
 const schemaInput = z.object({
-  numeroPedido: z.number(),
-  numeroNfe: z.number(),
-  dataPedido: z.date(),
+  numeroPedido: z.number({
+    required_error: "Obrigatório",
+    invalid_type_error: "Apenas Números",
+  }),
+  numeroNfe: z.number({
+    invalid_type_error: "Apenas Números",
+  }),
+  dataPedido: z.date({
+    invalid_type_error: "Data Inválida",
+  }),
   nomeCliente: z.string().nonempty("Campo Obrigatório"),
   emailCliente: z.string().email("Email Inválido"),
 });
@@ -48,7 +55,7 @@ export default function ModalNovaRemessa({ isOpen, setIsOpen }: Props) {
       
        "
       >
-        <div className="bg-slate-700 p-2 mb-3 rounded-md text-gray-300 ">
+        <div className="bg-slate-700 p-2 mb-3 h-[600px] rounded-md text-gray-300 ">
           <div className=" flex mb-4 justify-between ">
             <h5 className="font-semibold ">Criar nova remessa</h5>
 
@@ -74,8 +81,8 @@ export default function ModalNovaRemessa({ isOpen, setIsOpen }: Props) {
             </button>
           </div>
           <form action="" onSubmit={onSubmit(handleSubmit)} className=" ">
-            <div className="flex gap-3 w-96 flex-wrap ">
-              <div className="flex flex-col">
+            <div className="flex gap-2 w-96 flex-wrap">
+              <div className="flex flex-col w-[58%] h-20">
                 <label htmlFor="numeroPedido" className="">
                   Número Pedido
                 </label>
@@ -93,7 +100,7 @@ export default function ModalNovaRemessa({ isOpen, setIsOpen }: Props) {
                 )}
               </div>
 
-              <div className="flex flex-col">
+              <div className="flex flex-col h-16 w-[58%] ">
                 <label htmlFor="numeroNfe" className="">
                   Número Nfe
                 </label>
@@ -110,7 +117,7 @@ export default function ModalNovaRemessa({ isOpen, setIsOpen }: Props) {
                 )}
               </div>
 
-              <div className="flex flex-col">
+              <div className="flex flex-col w-[38%]">
                 <label htmlFor="dataPedido" className="">
                   Data do Pedido
                 </label>
@@ -127,7 +134,7 @@ export default function ModalNovaRemessa({ isOpen, setIsOpen }: Props) {
                 )}
               </div>
 
-              <div className="flex flex-col w-96">
+              <div className="flex flex-col w-full h-20">
                 <label htmlFor="nomeCliente" className="">
                   Nome Cliente
                 </label>
@@ -144,7 +151,7 @@ export default function ModalNovaRemessa({ isOpen, setIsOpen }: Props) {
                 )}
               </div>
 
-              <div className="flex flex-col w-96">
+              <div className="flex flex-col w-full h-20">
                 <label htmlFor="emailCliente" className="">
                   E-mail Cliente
                 </label>
