@@ -9,6 +9,8 @@ import App from "./App.tsx";
 import ErrorPage from "./pages/ErrorPage/Index.tsx";
 import { queryClient } from "./services/queryClient.ts";
 import RemessaDetails from "./pages/Remessa/Index.tsx";
+import Login from "./pages/Login/Index.tsx";
+import { AuthProvider } from "./context/AuthProvider/auth.tsx";
 
 const router = createBrowserRouter([
   {
@@ -30,12 +32,18 @@ const router = createBrowserRouter([
     path: "*",
     element: <ErrorPage />,
   },
+  {
+    path: "/login",
+    element: <Login />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </AuthProvider>
   </React.StrictMode>
 );

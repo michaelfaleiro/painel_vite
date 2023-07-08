@@ -1,6 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthProvider/useAuth";
 
 export default function Navbar() {
+  const auth = useAuth();
+  const navigate = useNavigate();
+  function logout() {
+    auth.logout();
+    navigate("/login");
+  }
+
   return (
     <nav>
       <div className=" flex items-center justify-between mx-auto p-4 bg-primary border-b text-white">
@@ -23,7 +31,9 @@ export default function Navbar() {
           </ul>
         </div>
 
-        <div>Sair</div>
+        <div>
+          <button onClick={() => logout()}>Sair</button>
+        </div>
       </div>
     </nav>
   );
