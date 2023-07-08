@@ -42,7 +42,9 @@ export default function Login() {
         <h2 className="text-3xl mt-2">Login</h2>
         <div className="bg-slate-700 h-full p-2 mt-6">
           <form action="" onSubmit={onSubmit(handleSubmit)}>
-            {auth.isError && <div>Error ao logar</div>}
+            {auth.isError && (
+              <div className="text-red-700">Usuário ou Senha Inválida</div>
+            )}
             <div className="flex flex-col mb-6 ">
               <label htmlFor="username" className="">
                 Username
