@@ -12,16 +12,18 @@ interface Props {
 }
 
 const schemaInput = z.object({
-  numeroPedido: z.number({
-    required_error: "Obrigatório",
-    invalid_type_error: "Apenas Números",
-  }),
-  numeroNfe: z.number({
-    invalid_type_error: "Apenas Números",
-  }),
-  dataPedido: z.date({
-    invalid_type_error: "Data Inválida",
-  }),
+  numeroPedido: z
+    .number({
+      required_error: "Obrigatório",
+      invalid_type_error: "Apenas Números",
+    })
+    .positive(),
+  numeroNfe: z
+    .number({
+      invalid_type_error: "Apenas Números",
+    })
+    .positive(),
+  dataPedido: z.date({}),
   nomeCliente: z.string().nonempty("Campo Obrigatório"),
   emailCliente: z.string().email("Email Inválido"),
 });

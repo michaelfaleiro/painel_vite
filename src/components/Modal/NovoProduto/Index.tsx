@@ -9,7 +9,12 @@ import { useState } from "react";
 
 const schemaInput = z.object({
   sku: z.string().nonempty("Campo vazio"),
-  quantidade: z.number().int().default(1),
+  quantidade: z
+    .number({
+      invalid_type_error: "Número",
+    })
+    .int()
+    .positive(),
   nomeProduto: z.string().nonempty("Campo vazio"),
 });
 
@@ -48,12 +53,23 @@ export default function ModalNovoPedido({ isOpen, setIsOpen }: Props) {
 
   return (
     <div className="w-full h-full fixed inset-0 justify-center flex items-center backdrop-blur-none">
-      <div className="min-w-4/12 h-96 border p-2 bg-zinc-600">
+      <div className="min-w-4/12 h-96 border p-2 bg-zinc-600 rounded-lg">
         <header className="flex justify-between">
           <span></span>
           <h4 className="text-center">Adicionar Produto</h4>
           <button className="" onClick={() => setIsOpen(!isOpen)}>
-            Fechar
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-8 h-8 text-red-600 hover:text-red-800 transition "
+            >
+              <path
+                fillRule="evenodd"
+                d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
+                clipRule="evenodd"
+              />
+            </svg>
           </button>
         </header>
         <div className="mt-3">
@@ -64,10 +80,9 @@ export default function ModalNovoPedido({ isOpen, setIsOpen }: Props) {
                   Quant
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   id="quantidade"
                   className="text-black p-1 rounded-md focus:bg-gray-300"
-                  value="1"
                   {...register("quantidade", { valueAsNumber: true })}
                 />
                 <span className="text-red-700 font-semibold">

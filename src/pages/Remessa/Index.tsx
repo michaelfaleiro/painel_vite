@@ -6,6 +6,7 @@ import { useState } from "react";
 import ModalDelete from "../../components/Modal/ModalDelete";
 import { useQuery } from "react-query";
 import Button from "../../components/Form/Button";
+import { dateFormatter } from "../../utils/formatter";
 
 export default function RemessaDetails() {
   let { id } = useParams();
@@ -31,6 +32,9 @@ export default function RemessaDetails() {
       {isLoading ? (
         <div className="text-center">
           <div role="status">
+            <h3 className=" text-gray-50 font-bold mb-3">
+              Carregando Dados Aguarde...
+            </h3>
             <svg
               aria-hidden="true"
               className="inline my-auto w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
@@ -44,7 +48,7 @@ export default function RemessaDetails() {
           </div>
         </div>
       ) : error ? (
-        <div> Ops Algo deu Errado </div>
+        <div> Ops Algo deu Errado, atualize a página </div>
       ) : (
         <div className="flex gap-2 ">
           <section className=" border p-2 flex flex-col w-96">
@@ -57,6 +61,7 @@ export default function RemessaDetails() {
                   <>
                     <tr>
                       <th scope="row">Pedido</th>
+
                       <td>{data?.numeroPedido}</td>
                     </tr>
                     <tr>
@@ -65,7 +70,10 @@ export default function RemessaDetails() {
                     </tr>
                     <tr>
                       <th scope="row">Data Pedido</th>
-                      <td>{data?.dataPedido}</td>
+
+                      <td>
+                        {dateFormatter.format(new Date(data?.dataPedido))}
+                      </td>
                     </tr>
                     <tr>
                       <th scope="row">Nome</th>

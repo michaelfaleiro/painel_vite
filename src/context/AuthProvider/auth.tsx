@@ -6,15 +6,15 @@ export const AuthContext = createContext<IContext>({} as IContext);
 
 export const AuthProvider = ({ children }: IAuthProvider) => {
   const [user, setUser] = useState<IUser | null>();
-  const [isAuthenticate, setIsAuthenticate] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
+
+  const isAuthenticate = !!user;
 
   useEffect(() => {
     const user = getUserLocalStorage();
 
     if (user) {
       setUser(user);
-      setIsAuthenticate(true);
     }
   }, []);
 
@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
 
       setUser(payload);
       setUserLocalStorage(payload);
-      setIsAuthenticate(true);
+
       return response;
     } catch (error) {
       setIsError(true);
@@ -37,7 +37,6 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
     setUser(null);
     setIsError(false);
     setUserLocalStorage(null);
-    setIsAuthenticate(false);
   }
 
   return (
